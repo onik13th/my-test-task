@@ -1,38 +1,8 @@
 package store
 
-import (
-	_ "github.com/lib/pq"
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
-)
-
-type Store struct {
-	config *Config
-	db     *gorm.DB
+type Store interface {
+	User() UserRepository
 }
 
-func New(config *Config) *Store {
-	return &Store{
-		config: config,
-	}
-}
-
-func (s *Store) Open() error {
-	db, err := gorm.Open(postgres.Open(s.config.DatabaseURL), &gorm.Config{})
-	if err != nil {
-		return err
-	}
-
-	s.db = db
-
-	return nil
-}
-
-func (s *Store) Close() error {
-	sqlDB, err := s.db.DB()
-	if err != nil {
-		return err
-	}
-
-	return sqlDB.Close()
-}
+// интерфейс "Store", который определяет функционал для работы с хранилищем данных.
+// этот интерфейс содержит только один метод User(), который возвращает экземпляр UserRepository.
