@@ -1,1 +1,11 @@
 .idea
+
+*.log
+
+/compiled-files/
+
+/.idea/
+.idea/
+
+./apiserver
+/apiserver
